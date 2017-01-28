@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  query_time: 2017-01-28 14:36:42
+  coin: one
+  rank: 1
+  price_usd: 1.5
+  price_btc: 1.5
+  volume_usd: 1.5
+  market_cap_usd: 1.5
+  available_supply: 1.5
+  total_supply: 1.5
+  last_updated: 1
+
+two:
+  query_time: 2017-01-28 14:36:42
+  coin: two
+  rank: 1
+  price_usd: 1.5
+  price_btc: 1.5
+  volume_usd: 1.5
+  market_cap_usd: 1.5
+  available_supply: 1.5
+  total_supply: 1.5
+  last_updated: 1
