@@ -71,6 +71,8 @@ function updatebtcprice(price_usd){
 
 function fillbtcprice(date){
 
+  date = date.substring(0,10);
+
   d1 = Date.parse(date)
   console.log(d1)
 
