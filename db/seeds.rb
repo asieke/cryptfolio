@@ -33,6 +33,7 @@ Coin.create([
 	{ currency_id: 'zcoin', name: 'ZCoin', symbol: 'XZC'}
 	]);
 
+
 Portfolio.create([
 	{name: 'Polo', description: 'Coins stored on Poloniex'},
 	{name: 'Bitcoin', description: 'Bitcoin Cold Storage'},
