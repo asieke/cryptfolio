@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128223642) do
+ActiveRecord::Schema.define(version: 20170129025323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 20170128223642) do
     t.index ["coin_id"], name: "index_prices_on_coin_id", using: :btree
   end
 
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "coin_id"
+    t.datetime "date"
+    t.float    "amount"
+    t.float    "price_usd"
+    t.float    "price_btc"
+    t.string   "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_transactions_on_coin_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -49,4 +61,5 @@ ActiveRecord::Schema.define(version: 20170128223642) do
   end
 
   add_foreign_key "prices", "coins"
+  add_foreign_key "transactions", "coins"
 end
