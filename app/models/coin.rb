@@ -1,4 +1,5 @@
 class Coin < ApplicationRecord
+	validates_uniqueness_of :currency_id
 	has_many :prices
 
 	def coinmarketcaplink

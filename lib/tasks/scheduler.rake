@@ -24,6 +24,11 @@ task :update_prices => :environment do
 	data.each_with_index{  |x, i| 
 
 		#if its a tracked coin then grab its financials
+
+		if x['id'] == 'bitcoin'
+			Btcusd.create(:date => qt.utc, :price_usd => x['price_usd'])
+		end
+
 		if hash.has_value?(x['id'])
 			coin_id = hash.key(x['id'])
 
