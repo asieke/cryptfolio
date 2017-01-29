@@ -1,33 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Coins</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Currency</th>
+          <th>Name</th>
+          <th>Symbol</th>
+          <th>Link</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Currency</th>
-      <th>Name</th>
-      <th>Symbol</th>
-      <th>Link</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @coins.each do |coin| %>
+          <tr>
+            <td><%= coin.currency_id %></td>
+            <td><%= coin.name %></td>
+            <td><%= coin.symbol %></td>
+            <td><%= link_to 'examine coin', coin.coinmarketcaplink, :target => "_blank" %></td>
+            <td><%= link_to 'Show', coin %></td>
+            <td><%= link_to 'Edit', edit_coin_path(coin) %></td>
+            <td><%= link_to 'Destroy', coin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <tbody>
-    <% @coins.each do |coin| %>
-      <tr>
-        <td><%= coin.currency_id %></td>
-        <td><%= coin.name %></td>
-        <td><%= coin.symbol %></td>
-        <td><%= link_to 'examine coin', coin.coinmarketcaplink, :target => "_blank" %></td>
-        <td><%= link_to 'Show', coin %></td>
-        <td><%= link_to 'Edit', edit_coin_path(coin) %></td>
-        <td><%= link_to 'Destroy', coin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+
 
 <%= link_to 'New Coin', new_coin_path %>
+</div>
+
+
