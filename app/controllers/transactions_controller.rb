@@ -26,6 +26,8 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
 
+    puts transaction_params.to_yaml
+
     respond_to do |format|
       if @transaction.save
         format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
@@ -69,6 +71,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:coin_id, :date, :amount, :price_usd, :price_btc, :kind)
+      params.require(:transaction).permit(:coin_id, :portfolio_id, :date, :amount, :price_usd, :price_btc, :kind)
     end
 end

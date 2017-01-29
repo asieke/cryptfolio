@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Portfolio</th>
       <th>Coin</th>
       <th>Date</th>
       <th>Amount</th>
@@ -18,7 +19,8 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.coin %></td>
+        <td><%= transaction.portfolio.name %></td>
+        <td><%= transaction.coin.name %></td>
         <td><%= transaction.date %></td>
         <td><%= transaction.amount %></td>
         <td><%= transaction.price_usd %></td>

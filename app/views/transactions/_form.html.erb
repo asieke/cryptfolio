@@ -17,9 +17,21 @@
   </div>
 
   <div class="field">
-    <%= f.label :date %>
-    <%= f.datetime_select :date %>
+    <%= f.label :portfolio_id %>
+    <%= f.collection_select(:portfolio_id, Portfolio.all, :id, :name) %>
   </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.text_field :date, onchange: "fillbtcprice(this.value)" %>
+  </div>
+
+  <div class="field">
+    <label for="btcprice">Bitcoin Price USD</label>
+    <span id='bitcoinprice'>&nbsp;</span>
+  </div>
+
+
 
   <div class="field">
     <%= f.label :amount %>
@@ -28,7 +40,7 @@
 
   <div class="field">
     <%= f.label :price_usd %>
-    <%= f.text_field :price_usd %>
+    <%= f.text_field :price_usd, onchange: "updatebtcprice(this.value)"  %>
   </div>
 
   <div class="field">
@@ -45,3 +57,29 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+
+function updatebtcprice(price_usd){
+  //given the price in USD / adjust the BTC total amount
+
+  price_btc = $("#bitcoinprice").html();
+  $("#transaction_price_btc").val(price_usd/price_btc)
+
+
+}
+
+function fillbtcprice(date){
+
+  d1 = Date.parse(date)
+  console.log(d1)
+
+  if(!isNaN(d1) && d1 >= Date.parse("2014-01-01")){
+    $.get( "/api/getbtcprice/"+date, function( data ) {
+      $("#bitcoinprice").html(data)
+    });
+  }
+}
+
+</script>
+
