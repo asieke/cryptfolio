@@ -6,8 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
+Price.delete_all
+Transaction.delete_all
+Portfolio.delete_all
 Coin.delete_all
+Btcusd.delete_all
+
+
+#######################
+# Create Coins
+########################
+
 Coin.create([
 	{ currency_id: 'bitcoin', name: 'Bitcoin', symbol: 'BTC'},
 	{ currency_id: 'ethereum', name: 'Ethereum', symbol: 'ETH'},
@@ -33,8 +42,9 @@ Coin.create([
 	{ currency_id: 'zcoin', name: 'ZCoin', symbol: 'XZC'}
 	]);
 
-
-Portfolio.delete_all
+#######################
+# Create Portfolio
+########################
 Portfolio.create([
 	{name: 'Polo', description: 'Coins stored on Poloniex'},
 	{name: 'Bitcoin', description: 'Bitcoin Cold Storage'},
@@ -42,8 +52,10 @@ Portfolio.create([
 	{name: 'Altcoin', description: 'Altcoins in Cold Storage'}
 ]);
 
-Transaction.delete_all
-Create Seed Transactions
+#######################
+# Create Seed TXN
+########################
+
 data = JSON.parse(open('https://s3-us-west-2.amazonaws.com/cryptfolio/txn.json').read)
 
 data.each do |row|
@@ -61,7 +73,10 @@ data.each do |row|
 	});
 end
 
-Price.delete_all
+#######################
+# Create Prices
+########################
+
 data = JSON.parse(open('https://s3-us-west-2.amazonaws.com/cryptfolio/prices.json').read)
 data.each do |row|
 	coin_id = Coin.where(symbol: row['symbol']).first.id
@@ -78,7 +93,10 @@ data.each do |row|
 
 end
 
-Btcusd.delete_all
+#######################
+# Historical BTC Prices
+########################
+
 data = JSON.parse(open('https://s3-us-west-2.amazonaws.com/cryptfolio/bitusd.json').read)
 
 data.each do |row|
