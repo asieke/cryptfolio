@@ -1,5 +1,5 @@
 class Price < ApplicationRecord
   belongs_to :coin
-  validates_uniqueness_of :query_time
+  validates :query_time, :presence => true, :uniqueness => {:scope => :coin_id}
 
 end

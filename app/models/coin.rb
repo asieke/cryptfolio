@@ -7,11 +7,13 @@ class Coin < ApplicationRecord
 	end
 
 	def current_price
-		puts "=======\n"
-		puts id
-		puts "========\n"
+		# puts "=======\n"
+		# puts id
+		# puts "========\n"
 
-		p1 = Price.where(["coin_id = ?", self.id]).order("query_time DESC").first
-		return p1.price_usd
+		# p1 = Price.where(["coin_id = ?", self.id]).order("query_time DESC").first
+		# return p1.price_usd
+
+		return "hello"
 	end
 end
