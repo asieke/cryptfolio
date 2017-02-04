@@ -2,24 +2,42 @@
 
 <h1>Portfolios</h1>
 
-<table>
+<table border=1>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
+      <th>Symbol</th>
+      <th>Crypto</th>
+      <th>Txn</th>
+      <th>Total N</th>
+      <th>Av Cost</th>
+      <th>Cost Basis</th>
+      <th>Current Price</th>
+      <th>Market Value</th>
+      <th>Return</th>
+
     </tr>
   </thead>
-
+<!-- ["STRAT", {"amount"=>2523.1467322999997, "tot_cost_usd"=>133.505497858, "avg_cost_usd"=>0.052912300402086304, "txn"=>2, "current_price"=>0.0947689, "market_value"=>239.11584035866545, "name"=>"Stratis"}]
+ -->
   <tbody>
     <% @portfolios.each do |portfolio| %>
-      <tr>
+      <tr style='background-color: #ffcc33'>
         <td><%= portfolio.name %></td>
-        <td><%= portfolio.description %></td>
-        <td><%= link_to 'Show', portfolio %></td>
-        <td><%= link_to 'Edit', edit_portfolio_path(portfolio) %></td>
-        <td><%= link_to 'Destroy', portfolio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% portfolio.positions.each do |p| %>
+        <tr>
+          <td><%= p[0] %></td>
+          <td><%= p[1]['name'] %></td>
+          <td><%= p[1]['txn'] %></td>
+          <td><%= number_with_precision(p[1]['amount'], precision: 2) %></td>
+          <td><%= number_to_currency(p[1]['avg_cost_usd']) %></td>
+          <td><%= number_to_currency(p[1]['tot_cost_usd']) %></td>
+          <td><%= number_to_currency(p[1]['current_price']) %></td>
+          <td><%= number_to_currency(p[1]['market_value']) %></td>
+          <td><%= number_to_percentage(100*((p[1]['market_value']/p[1]['tot_cost_usd'])-1)) %></td>
+
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
