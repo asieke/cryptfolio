@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+.port-table{
+	border: 1px solid #ccc;
+}
+
+.port-table td{
+	padding: 5px;
+}
+
+.port-table th{
+	background-color: #2980b9;
+	font-weight: normal;
+	color: #fff;
+	padding: 5px;
+}

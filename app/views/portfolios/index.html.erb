@@ -1,47 +1,66 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Portfolios</h1>
 
-<table border=1>
-  <thead>
+<table border=1 style='width: 100%' class='port-table'>
     <tr>
-      <th>Symbol</th>
-      <th>Crypto</th>
-      <th>Txn</th>
-      <th>Total N</th>
-      <th>Av Cost</th>
-      <th>Cost Basis</th>
-      <th>Current Price</th>
-      <th>Market Value</th>
-      <th>Return</th>
+      <th style='width: 10%'>Symbol</th>
+      <th style='width: 10%'>Crypto</th>
+      <th style='width: 10%'>Txn</th>
+      <th style='width: 10%'>Total N</th>
+      <th style='width: 10%'>Av Cost</th>
+      <th style='width: 10%'>Cost Basis</th>
+      <th style='width: 10%'>Current Price</th>
+      <th style='width: 10%'>Market Value</th>
+      <th style='width: 10%'>Return</th>
 
     </tr>
-  </thead>
-<!-- ["STRAT", {"amount"=>2523.1467322999997, "tot_cost_usd"=>133.505497858, "avg_cost_usd"=>0.052912300402086304, "txn"=>2, "current_price"=>0.0947689, "market_value"=>239.11584035866545, "name"=>"Stratis"}]
- -->
-  <tbody>
+
     <% @portfolios.each do |portfolio| %>
-      <tr style='background-color: #ffcc33'>
+
+      <tr style='background-color: #f5f5f5' onclick="toggle('portfolio<%= portfolio.id %>')">
         <td><%= portfolio.name %></td>
+        <td></td>
+        <td><%= portfolio.totals['txn'] %></td>
+        <td></td>
+        <td></td>
+        <td><%= number_to_currency(portfolio.totals['tot_cost_usd'], precision: 2) %></td>
+        <td></td>
+        <td><%= number_to_currency(portfolio.totals['market_value'], precision: 2) %></td>
+        <td><%= number_to_percentage(100*((portfolio.totals['market_value'] / portfolio.totals['tot_cost_usd'])-1)) %></td>
+
       </tr>
+
       <% portfolio.positions.each do |p| %>
-        <tr>
+
+        <tr class='portfolio<%= portfolio.id %>' style='display: none'>
           <td><%= p[0] %></td>
           <td><%= p[1]['name'] %></td>
           <td><%= p[1]['txn'] %></td>
           <td><%= number_with_precision(p[1]['amount'], precision: 2) %></td>
-          <td><%= number_to_currency(p[1]['avg_cost_usd']) %></td>
-          <td><%= number_to_currency(p[1]['tot_cost_usd']) %></td>
-          <td><%= number_to_currency(p[1]['current_price']) %></td>
-          <td><%= number_to_currency(p[1]['market_value']) %></td>
+          <td><%= number_to_currency(p[1]['avg_cost_usd'], precision: 4) %></td>
+          <td><%= number_to_currency(p[1]['tot_cost_usd'], precision: 2) %></td>
+          <td><%= number_to_currency(p[1]['current_price'], precision: 4) %></td>
+          <td><%= number_to_currency(p[1]['market_value'], precision: 2) %></td>
           <td><%= number_to_percentage(100*((p[1]['market_value']/p[1]['tot_cost_usd'])-1)) %></td>
-
         </tr>
+
       <% end %>
+
     <% end %>
-  </tbody>
+
 </table>
 
 <br>
+
+<script>
+function toggle(i){
+
+  if($("."+i).css('display')=="none"){
+    $("."+i).css('display','table-row ')
+  }else{
+    $("."+i).css('display','none ')
+  }
+}
+</script>
 
 <%= link_to 'New Portfolio', new_portfolio_path %>

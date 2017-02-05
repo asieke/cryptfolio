@@ -11,6 +11,26 @@ class Portfolio < ApplicationRecord
 #  210 |     331 | 2015-08-27 00:00:00 |          12 |    229.85 |         12 | Buy  | 2017-02-02 23:09:26.314542 | 2017-02-02 23:09:26.314542 |           47
 #  211 |     331 | 2016-03-14 00:00:00 |          10 |    419.04 |         10 | Buy  | 2017-02-02 23:09:26.320238 | 2017-02-02 23:09:26.320238 |           47
 
+
+	def totals
+		json =  { "tot_cost_usd" => 0, "txn" => 0, "market_value" => 0 }
+		txn = Transaction.where(["portfolio_id = ?", self.id])
+		txn.each do |t|
+			json["txn"] += 1;
+			if t.kind == "Buy" 
+				json["tot_cost_usd"] += t.amount * t.price_usd;
+				json["market_value"] += t.amount * t.coin.current_price;
+
+			end
+			if t.kind == "Sell"
+				json["tot_cost_usd"] -= t.amount * t.price_usd;
+				json["market_value"] -= t.amount * t.coin.current_price;
+			end
+		end
+		return json
+	end
+	
+
 	def positions
 		txn = Transaction.where(["portfolio_id = ?", self.id])
 
